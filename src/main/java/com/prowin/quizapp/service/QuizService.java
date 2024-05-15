@@ -14,6 +14,7 @@ import com.prowin.quizapp.dao.QuizDao;
 import com.prowin.quizapp.model.BaseQuestion;
 import com.prowin.quizapp.model.Questions;
 import com.prowin.quizapp.model.Quiz;
+import com.prowin.quizapp.model.UserRes;
 
 @Service
 public class QuizService {
@@ -53,6 +54,26 @@ public class QuizService {
 		}
 		
 		return new ResponseEntity(userQuestion, HttpStatus.OK);
+	}
+
+	public ResponseEntity<Integer> getResult(int id, List<UserRes> userRes) {
+		int result = 0;
+		
+		Quiz quiz = quizDao.findById(id).get();
+		List<Questions> quiestions = quiz.getQuestions();
+		
+		for(UserRes res: userRes) {
+			Questions que = quiestions.stream()
+				.filter(q -> q.getId() == res.getId())
+				.findAny()
+				.orElse(null);
+			
+			if(que != null && que.getRightAnswer().equals(res.getAns())) {
+				result++;
+			}
+		}
+		
+		return new ResponseEntity(result, HttpStatus.OK);
 	}
 
 }
