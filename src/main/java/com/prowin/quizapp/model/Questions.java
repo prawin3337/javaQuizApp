@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 @Entity()
 public class Questions {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	public int getId() {
 		return id;
@@ -58,6 +58,12 @@ public class Questions {
 	public void setDifficultyLavel(String difficultyLavel) {
 		this.difficultyLavel = difficultyLavel;
 	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	private String questionTitle;
 	private String option1;
 	private String option2;
@@ -65,4 +71,5 @@ public class Questions {
 	private String option4;
 	private String rightAnswer;
 	private String difficultyLavel;
+	private String category;
 }

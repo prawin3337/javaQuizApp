@@ -18,5 +18,16 @@ public class QuestionService {
 		// TODO Auto-generated method stub
 		return questionDao.findAll();
 	}
+
+	public List<Questions> getQuestionByCategory(String category) {
+		// TODO Auto-generated method stub
+		return questionDao.findByCategory(category);
+	}
+
+	public String addQuestion(Questions question) {
+		// TODO Auto-generated method stub
+		questionDao.save(question);
+		return "success";
+	}
 	
 }
