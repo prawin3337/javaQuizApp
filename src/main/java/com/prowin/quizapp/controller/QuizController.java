@@ -1,7 +1,9 @@
 package com.prowin.quizapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,10 +20,11 @@ public class QuizController {
 	
 	@PostMapping("create")
 	public ResponseEntity<String> createQuiz(@RequestParam String category, @RequestParam int numQ, @RequestParam String title) {
-		quizService.createQuiz(category, numQ, title);
-		System.out.println(category);
-		System.out.println(numQ);
-		System.out.println(title);
 		return quizService.createQuiz(category, numQ, title);
+	}
+	
+	@GetMapping("get")
+	public ResponseEntity<String> getQuiz(@RequestParam int id) {
+		return new ResponseEntity("hi", HttpStatus.OK);
 	}
 }
