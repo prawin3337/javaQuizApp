@@ -1,6 +1,8 @@
 package com.prowin.quizapp.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.prowin.quizapp.dao.QuestionDao;
 import com.prowin.quizapp.dao.QuizDao;
+import com.prowin.quizapp.model.BaseQuestion;
 import com.prowin.quizapp.model.Questions;
 import com.prowin.quizapp.model.Quiz;
 
@@ -30,6 +33,26 @@ public class QuizService {
 		quizDao.save(quiz);
 		
 		return new ResponseEntity("success", HttpStatus.CREATED); 
+	}
+
+	public ResponseEntity<List<BaseQuestion>> getQuiz(int id) {
+		Optional<Quiz> quiz =  quizDao.findById(id);
+		List<Questions> questions = quiz.get().getQuestions();
+		List<BaseQuestion> userQuestion = new ArrayList<BaseQuestion>();
+
+		for(Questions q : questions) {
+			BaseQuestion bq = new BaseQuestion(
+					1,
+					q.getQuestionTitle(),
+					q.getOption1(),
+					q.getOption2(),
+					q.getOption3(),
+					q.getOption4()
+				);
+			userQuestion.add(bq);
+		}
+		
+		return new ResponseEntity(userQuestion, HttpStatus.OK);
 	}
 
 }
