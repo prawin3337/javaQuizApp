@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,8 +27,8 @@ public class QuizController {
 		return quizService.createQuiz(category, numQ, title);
 	}
 	
-	@GetMapping("get")
-	public ResponseEntity<List<BaseQuestion>> getQuiz(@RequestParam int id) {
+	@GetMapping("get/{id}")
+	public ResponseEntity<List<BaseQuestion>> getQuiz(@PathVariable int id) {
 		return new ResponseEntity(quizService.getQuiz(id), HttpStatus.OK);
 	}
 }
